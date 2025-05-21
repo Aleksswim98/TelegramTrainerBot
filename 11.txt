@@ -1,0 +1,26 @@
+# init_db.py
+import sqlite3
+
+conn = sqlite3.connect('fitness_bot.db')
+cursor = conn.cursor()
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    telegram_id INTEGER UNIQUE,
+    username TEXT,
+    is_admin BOOLEAN DEFAULT 0
+)
+''')
+
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS programs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    description TEXT
+)
+''')
+
+conn.commit()
+conn.close()
+print("База данных и таблицы созданы!")
